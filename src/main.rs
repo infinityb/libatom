@@ -1,8 +1,12 @@
-extern crate rand;
+#![feature(test)]
 
+extern crate test;
+extern crate rand;
 
 mod vec3;
 mod atoms;
+mod elements_trait;
+mod elements_enum;
 
 use vec3::Vec3;
 use atoms::{Atom, Atoms};
