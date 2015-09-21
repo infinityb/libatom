@@ -1,0 +1,7 @@
+[package]
+name = "libatom"
+version = "0.1.0"
+authors = ["ehermes <ehermes@wisc.edu>"]
+
+[dependencies]
+rand = "*"
