@@ -1,8 +1,10 @@
 extern crate rand;
 
 use std::{slice, iter};
+use std::ops::Add;
 use vec3::Vec3;
 
+#[derive(Clone)]
 pub struct Atom {
     pub position: Vec3,
     pub epsilon: f64,
@@ -19,6 +21,7 @@ impl Atom {
     }
 }
 
+#[derive(Clone)]
 pub struct Atoms {
     pub a: f64,
     pub b: f64,
@@ -36,8 +39,52 @@ impl Atoms {
         }
     }
 
-//    fn atoms(&self) -> iter::Enumerate<slice::Iter<'_, Atom>> {
-//        self.atoms.iter().enumerate()
-//    }
+    pub fn push(&mut self, item: Atom) {
+        self.atoms.push(item)
+    }
 
+    pub fn pop(&mut self) -> Option<Atom> {
+        self.atoms.pop()
+    }
+
+}
+
+impl Add<Atom> for Atom {
+    type Output = Atoms;
+
+    fn add(self, other: Atom) -> Atoms {
+        Atoms::new(vec![self, other])
+    }
+}
+
+impl Add<Atom> for Atoms {
+    type Output = Atoms;
+
+    fn add(self, other: Atom) -> Atoms {
+        let mut new = self.clone();
+        new.push(other.clone());
+        new
+    }
+}
+
+impl Add<Atoms> for Atom {
+    type Output = Atoms;
+
+    fn add(self, other: Atoms) -> Atoms {
+        let mut new = other.clone();
+        new.push(self.clone());
+        new
+    }
+}
+
+impl Add<Atoms> for Atoms {
+    type Output = Atoms;
+
+    fn add(self, other: Atoms) -> Atoms {
+        let mut new = self.clone();
+        for atom in other.atoms {
+            new.push(atom.clone());
+        }
+        new
+    }
 }
