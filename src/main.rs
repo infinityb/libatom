@@ -1,6 +1,7 @@
 extern crate rand;
 
 mod vec3;
+mod atoms;
 
 use vec3::Vec3;
 use atoms::{Atom, Atoms};
