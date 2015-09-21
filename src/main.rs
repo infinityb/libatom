@@ -1,5 +1,6 @@
 extern crate rand;
 
+
 mod vec3;
 mod atoms;
 
@@ -11,9 +12,9 @@ fn main() {
     let mut a2 = Atom::new(5., 5., 5., 1., 1.);
     let mut sys = a1 + a2;
     sys = sys + Atom::new(1., 1., 1., 1., 1.,);
-    for (i, atomi) in sys.atoms.iter().enumerate() {
-        for (j, atomj) in sys.atoms.iter().enumerate() {
-            if i == j {continue};
+    for (i, atomi) in sys.enumerate() {
+        for (j, atomj) in sys.enumerate() {
+            if i == j { continue };
             let dr = atomj.position - atomi.position;
             let r = dr.len();
             println!("{}", r);

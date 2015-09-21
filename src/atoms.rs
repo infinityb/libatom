@@ -45,6 +45,9 @@ impl Atoms {
         self.atoms.pop()
     }
 
+    pub fn enumerate(&self) -> iter::Enumerate<slice::Iter<Atom>> {
+        self.atoms.iter().enumerate()
+    }
 }
 
 impl Add<Atom> for Atom {
@@ -108,3 +111,16 @@ impl Add<Atoms> for Atoms {
 //    type Item = Atom;
 //    fn next(&mut self) -> Option<Atom> {
 //
+
+// This adds support for ```
+// for atom in &my_atoms {
+//     ...
+// }```
+impl<'a> IntoIterator for &'a Atoms {
+    type Item = &'a Atom;
+    type IntoIter = slice::Iter<'a, Atom>;
+
+    fn into_iter(self) -> slice::Iter<'a, Atom> {
+        self.atoms.iter()
+    }
+}
