@@ -1,5 +1,3 @@
-extern crate rand;
-
 use std::{slice, iter};
 use std::ops::Add;
 use vec3::Vec3;
@@ -72,7 +70,10 @@ impl Add<Atoms> for Atom {
 
     fn add(self, other: Atoms) -> Atoms {
         let mut new = other.clone();
-        new.push(self.clone());
+        new.atoms = vec![self];
+        for atom in other.atoms {
+            new.push(atom.clone());
+        }
         new
     }
 }
@@ -88,3 +89,22 @@ impl Add<Atoms> for Atoms {
         new
     }
 }
+
+//impl IntoIterator for Atoms {
+//    type Item = Atom;
+//    type IntoIter = AtomsIntoIter;
+//
+//    fn into_iter(self) -> Self::IntoIter {
+//        AtomsIntoIter { atoms: self, index: 0 }
+//    }
+//}
+//
+//struct AtomsIntoIter {
+//    atoms: Atoms,
+//    index: usize,
+//}
+//
+//impl Iterator for AtomsIntoIter {
+//    type Item = Atom;
+//    fn next(&mut self) -> Option<Atom> {
+//
